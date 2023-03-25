@@ -74,7 +74,7 @@ export default {
   },
   mounted() {
     console.log(this.speciesName);
-
+    // 这里是将传过来的query参数，将其物种值赋给searchOptionValue,只要其值发生变化，watch就会监控到并最终做出页面渲染
     if (typeof (this.speciesName) != "undefined" && this.speciesName != "") {
       this.searchOptionValue = this.speciesName;
       return;
@@ -91,6 +91,7 @@ export default {
     }
   },
   watch: {
+    // 监控搜索单选框当中值的变化，一旦改变就渲染对应的物种的JBrowse页面
     searchOptionValue(newValue, oldValue) {
       console.log('searchOptionValue被修改了', "new:" + newValue, "old:" + oldValue)
       if (newValue != '' && newValue != null) {
