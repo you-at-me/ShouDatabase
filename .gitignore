@@ -5,7 +5,8 @@ node_modules
 events
 helper
 libs
-
+public/static
+public/types
 
 # local env files
 .env.local
