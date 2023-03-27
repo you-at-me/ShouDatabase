@@ -933,7 +933,7 @@ export default {
         this.$refs.multipleTable.clearSelection();
       }
     },
-    // 得到表格当中勾选的所有数据
+    // 得到表格当中勾选的所有数据，这部分数据可供下载
     handleSelectionChange(val) {
       this.multipleSelection = val;
       console.log("the choosed:", this.multipleSelection);
