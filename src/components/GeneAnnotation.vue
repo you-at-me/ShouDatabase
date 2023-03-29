@@ -767,6 +767,12 @@ export default {
           biotype: 'protein_coding',
           chromsome: 'chr1',
           annotation: 'exportin-1-like [Source:NCBI gene%3BAcc:115012690]'
+        }, {
+          geneID: 'ENSCGOG00000000002',
+          dataBase: 'ensembl',
+          biotype: 'protein_coding',
+          chromsome: 'chr1',
+          annotation: 'exportin-1-like [Source:NCBI gene%3BAcc:115012690]'
         },
       ],
       pageFilterTableData: [],
