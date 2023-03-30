@@ -15,7 +15,7 @@ export const downloadXlsx = (dataList, fileName) => {
   XLSX.utils.book_append_sheet(workbook, worksheet, 'sheet1');
 
   // 字节流转成二进制
-  let xlsxBlob = new Blob([stringToBuff(XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' }))], { type: '' })
+  const xlsxBlob = new Blob([stringToBuff(XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' }))], { type: '' })
 
   const a = document.createElement('a');
   a.href = URL.createObjectURL(xlsxBlob);
