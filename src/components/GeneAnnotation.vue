@@ -9,69 +9,87 @@
         corresponding keywords to search for the annotation data of related genomes, such as gene id, gene name, etc., or
         you can directly instruct to search for a specific species to retrieve all related annotated genome data of the
         entire species come out.</p>
-      <div class="select_option">
-        <!-- 展示的值都是label的属性值，获取到的值都是value的属性值 -->
-        <el-select v-model="speciesSearchOptionValue" placeholder="Specie Name" style="width: 270px;">
-          <el-option v-for="item in speciesOptions" :key="item" :label="item" :value="item">
-          </el-option>
-        </el-select>
-        <el-select v-model="geneSourceSearchOptionValue" clearable placeholder="Gene Source" class="radio-box-spacin">
-          <el-option v-for="item in geneSourceOptions" :key="item" :label="item" :value="item">
-          </el-option>
-        </el-select>
+      <div class="select_option_outer">
+        <div class="select_option_inner">
+          <!-- 展示的值都是label的属性值，获取到的值都是value的属性值 -->
+          <el-select v-model="speciesSearchOptionValue" placeholder="Specie Name" style="width: 250px;">
+            <el-option v-for="item in speciesOptions" :key="item" :label="item" :value="item">
+            </el-option>
+          </el-select>
+          <el-select v-model="geneSourceSearchOptionValue" clearable placeholder="Gene Source" class="radio-box-spacin">
+            <el-option v-for="item in geneSourceOptions" :key="item" :label="item" :value="item">
+            </el-option>
+          </el-select>
 
-        <el-autocomplete v-model="state" filterable clearable :fetch-suggestions="querySearchAsync"
-          placeholder="Select a Gene Id or Annotation keywords" @select="handleSelect"
-          style="width: 475px;"></el-autocomplete>
+          <el-autocomplete v-model="state" filterable clearable :fetch-suggestions="querySearchAsync"
+            placeholder="Select a Gene Id or Annotation keywords" @select="handleSelect"
+            style="width: 460px;"></el-autocomplete>
 
-        <el-button type="primary" plain icon="el-icon-search" style="float: right;" @click="geneAnnatitionSearch"
-          :loading="loading">search</el-button>
-      </div>
-
-      <div class="table_view">
-
-        <div class="download_btn">
-          <el-button class="tick_download" size="mini" icon="el-icon-download" @click="tickDownload"
-            plain>TickDownload</el-button>
-          <el-button class="download_all" size="mini" icon="el-icon-download" @click="downloadAll"
-            plain>DownloadAll</el-button>
-        </div>
-
-        <el-table ref="multipleTable" :border="isBorder" :data="pageFilterTableData" tooltip-effect="dark"
-          style="width: 100%" @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="55">
-          </el-table-column>
-          <!-- prop属性的属性值表示自动会去寻找表格数据中带有其属性值的值，并赋值给当前单元格，当然如果你不指定prop属性值，也可以通过template标签的slot-scope插槽将数据渲染到对应的单元格当中，label表示的是列头的名。show-overflow-tooltip表示当单元格的数据过长无法全部显示的时候将会弹出对应的tip进行显示 -->
-          <el-table-column label="Gene ID" width="220">
-            <template slot-scope="scope">{{ scope.row.geneID }}</template>
-          </el-table-column>
-          <el-table-column label="DataBase" prop="dataBase" width="120">
-          </el-table-column>
-          <el-table-column label="BioType" prop="biotype" width="150">
-          </el-table-column>
-          <el-table-column label="Chromsome" prop="chromsome" width="120">
-          </el-table-column>
-          <el-table-column label="Annotation" prop="annotation" show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column label="JBrowse" width="120">
-            <template><span style="color: #5390bd;"
-                @click="showJbrowseView(speciesSearchOptionValue)">JBrowse</span></template>
-          </el-table-column>
-        </el-table>
-
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
-          :page-sizes="[5, 10, 20, 50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
-          :total="tableData.length" style="margin-top: 30px;">
-        </el-pagination>
-
-        <div style="margin-top: 20px">
-          <el-button plain
-            @click="toggleSelection([pageFilterTableData[pageFilterTableData.length - 1], pageFilterTableData[2]])">Toggle
-            the selected state
-            of the last row</el-button>
-          <el-button plain @click="toggleSelection()">Uncheck</el-button>
+          <el-button type="primary" plain icon="el-icon-search" style="float: right;" @click="geneAnnatitionSearch"
+            :loading="loading">search</el-button>
         </div>
       </div>
+
+      <div class="table_outer">
+        <div class="table_inner">
+          <div class="download_btn">
+            <el-button class="tick_download" size="mini" icon="el-icon-download" @click="tickDownload"
+              plain>TickDownload</el-button>
+            <el-button class="download_all" size="mini" icon="el-icon-download" @click="downloadAll"
+              plain>DownloadAll</el-button>
+          </div>
+
+          <el-table ref="multipleTable" :border="isBorder" :data="pageFilterTableData" tooltip-effect="dark"
+            style="width: 100%" @selection-change="handleSelectionChange">
+            <el-table-column type="selection" width="55">
+            </el-table-column>
+            <!-- prop属性的属性值表示自动会去寻找表格数据中带有其属性值的值，并赋值给当前单元格，当然如果你不指定prop属性值，也可以通过template标签的slot-scope插槽将数据渲染到对应的单元格当中，label表示的是列头的名。show-overflow-tooltip表示当单元格的数据过长无法全部显示的时候将会弹出对应的tip进行显示 -->
+            <el-table-column label="Gene ID" width="220">
+              <template slot-scope="scope">{{ scope.row.geneID }}</template>
+            </el-table-column>
+            <el-table-column label="DataBase" prop="dataBase" width="120">
+            </el-table-column>
+            <el-table-column label="BioType" prop="biotype" width="150">
+            </el-table-column>
+            <el-table-column label="Chromsome" prop="chromsome" width="120">
+            </el-table-column>
+            <el-table-column label="Annotation" prop="annotation" show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column label="JBrowse" width="120">
+              <template><span style="color: #5390bd;"
+                  @click="showJbrowseView(speciesSearchOptionValue)">JBrowse</span></template>
+            </el-table-column>
+          </el-table>
+
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
+            :page-sizes="[5, 10, 20, 50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+            :total="tableData.length" style="margin-top: 30px;">
+          </el-pagination>
+
+          <div style="margin-top: 20px">
+            <el-button plain
+              @click="toggleSelection([pageFilterTableData[pageFilterTableData.length - 1], pageFilterTableData[2]])">Toggle
+              the selected state
+              of the last row</el-button>
+            <el-button plain @click="toggleSelection()">Uncheck</el-button>
+          </div>
+        </div>
+      </div>
+      <!-- <div>
+        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="100">
+          <div style="{
+            height: 100%;
+            width: 100%;
+            background-color: #f2f5f6;
+            box-shadow: 0 0 6px rgba(0,0,0, .12);
+            text-align: center;
+            line-height: 40px;
+            color: #1989fa;
+          }">
+            UP
+          </div>
+        </el-backtop>
+      </div> -->
     </div>
   </div>
 </template>
@@ -88,7 +106,8 @@ export default {
     "el-button": Button,
     "el-table": Table,
     "el-table-column": TableColumn,
-    "el-pagination": Pagination
+    "el-pagination": Pagination,
+    // "el-backtop": Backtop
   },
   data() {
     return {
@@ -965,18 +984,28 @@ export default {
   line-height: 25px;
 }
 
-.select_option {
+.select_option_outer {
   text-align: left;
   margin-top: 30px;
   width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+}
+
+.select_option_inner {
+  padding: 15px 20px;
 }
 
 .radio-box-spacin {
   margin: 0 20px 0 18px;
 }
 
-.table_view {
+.table_outer {
   margin-top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+}
+
+.table_inner {
+  padding: 20px 40px;
 }
 
 .download_btn {
