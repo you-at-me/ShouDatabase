@@ -46,11 +46,10 @@
 <script>
 import { Input } from "element-ui"
 import { Collapse, Icon, Tabs } from "ant-design-vue";
-// 对于不能直接按照上述引入的组件，必须得找到lib目录下对某个文件夹下的文件进行引入才行，如下模式:
+// 对于不能直接按照上述引入的组件，可能是子组件，必须得找到lib目录下对某个文件夹下的文件进行引入才行，如下模式:(有些甚至在主页的子组件那)
 import CollapsePanel from 'ant-design-vue/lib/collapse/CollapsePanel'
 import { TabPane } from 'ant-design-vue/lib/tabs/index'
 // import InputSearch from 'ant-design-vue/lib/input/Search'
-// import 'ant-design-vue/lib/auto-complete'; 
 
 export default {
   name: 'GeneSearch',
