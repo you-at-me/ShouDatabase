@@ -6,17 +6,19 @@
       <p style="color: #676a6c; font-size: 12px;">JBrowse is a dynamic web platform website focusing on visualization and
         analysis of genomic data.</p>
     </div>
-    <div class="select_option">
-      <!-- 当开启了filterable功能的时候默认会过滤el-option标签下label属性值的内容，展示所需要搜索的所有包含其中的内容。若希望使用其他的搜索逻辑，可以通过传入一个filter-method来实现(但filterable不能删掉)即通过 :filter-method="filterSearch"。filter-method为一个函数方法，这里指定filterSearch,它会在输入值发生变化时自动调用，参数为当前输入值，当输入框一有变化时将会自动调用对应的属性值方法。-->
-      <el-select v-model="searchOptionValue" filterable clearable placeholder="select one or input to search">
-        <el-option-group v-for="group in options" :key="group.selectLabel" :label="group.selectLabel">
-          <el-option v-for="item in group.options" :key="item.label" :label="item.value" :value="item.value"
-            :disabled="item.disabled">
-            <span style="float: left">{{ item.value }}</span>
-            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.label }}</span>
-          </el-option>
-        </el-option-group>
-      </el-select>
+    <div class="select_option_outer">
+      <div class="select_option_inner">
+        <!-- 当开启了filterable功能的时候默认会过滤el-option标签下label属性值的内容，展示所需要搜索的所有包含其中的内容。若希望使用其他的搜索逻辑，可以通过传入一个filter-method来实现(但filterable不能删掉)即通过 :filter-method="filterSearch"。filter-method为一个函数方法，这里指定filterSearch,它会在输入值发生变化时自动调用，参数为当前输入值，当输入框一有变化时将会自动调用对应的属性值方法。-->
+        <el-select v-model="searchOptionValue" style="width: 275px" filterable clearable placeholder="select one or input to search">
+          <el-option-group v-for="group in options" :key="group.selectLabel" :label="group.selectLabel">
+            <el-option v-for="item in group.options" :key="item.label" :label="item.value" :value="item.value"
+              :disabled="item.disabled">
+              <span style="float: left">{{ item.value }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">{{ item.label }}</span>
+            </el-option>
+          </el-option-group>
+        </el-select>
+      </div>
     </div>
     <iframe :src="jbrowsePageSrc" frameborder="0" class="jbrowse_index"></iframe>
   </div>
@@ -109,9 +111,15 @@ export default {
   margin: 20px 0px;
 }
 
-.select_option {
+.select_option_outer {
   text-align: left;
   margin-top: 30px;
+  width: 295px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+}
+
+.select_option_inner {
+  padding: 10px;
 }
 
 .jbrowse_index {
