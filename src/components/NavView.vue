@@ -27,10 +27,14 @@
     <div class="show-page">
       <router-view></router-view>
     </div>
+    <div>
+      <a-back-top></a-back-top>
+    </div>
   </div>
 </template>
 
 <script>
+import { BackTop } from "ant-design-vue"
 import { Menu, MenuItem, Submenu } from "element-ui";
 
 export default {
@@ -43,7 +47,8 @@ export default {
   components: {
     "el-menu": Menu,
     "el-menu-item": MenuItem,
-    "el-submenu": Submenu
+    "el-submenu": Submenu,
+    "a-back-top": BackTop,
   },
   mounted() {
     console.log("router:", this.$router, this.$router.options.routes);
