@@ -9,6 +9,7 @@
         corresponding keywords to search for the annotation data of related genomes, such as gene id, gene name, etc., or
         you can directly instruct to search for a specific species to retrieve all related annotated genome data of the
         entire species come out.</p>
+
       <div class="select_option_outer">
         <div class="select_option_inner">
           <!-- 展示的值都是label的属性值，获取到的值都是value的属性值 -->
@@ -32,15 +33,17 @@
 
       <div class="table_outer">
         <div class="table_inner">
-          <div class="download_btn">
+          <div style="height: 30px;">
             <el-button class="tick_download" size="mini" icon="el-icon-download" @click="tickDownload"
               plain>TickDownload</el-button>
             <el-button class="download_all" size="mini" icon="el-icon-download" @click="downloadAll"
               plain>DownloadAll</el-button>
+            <el-input v-model="tableFilter" size="mini" clearable placeholder="input keywords to filter" class="table_filter" />
           </div>
 
-          <el-table ref="multipleTable" :border="isBorder" :data="pageFilterTableData" tooltip-effect="dark"
-            style="width: 100%" @selection-change="handleSelectionChange">
+          <el-table ref="multipleTable" :border="isBorder"
+            :data="pageFilterTableData.filter(data => !tableFilter || data.geneID.toLowerCase().includes(tableFilter.toLowerCase()))"
+            tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
             <!-- prop属性的属性值表示自动会去寻找表格数据中带有其属性值的值，并赋值给当前单元格，当然如果你不指定prop属性值，也可以通过template标签的slot-scope插槽将数据渲染到对应的单元格当中，label表示的是列头的名。show-overflow-tooltip表示当单元格的数据过长无法全部显示的时候将会弹出对应的tip进行显示 -->
@@ -75,27 +78,12 @@
           </div>
         </div>
       </div>
-      <!-- <div>
-        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="100">
-          <div style="{
-            height: 100%;
-            width: 100%;
-            background-color: #f2f5f6;
-            box-shadow: 0 0 6px rgba(0,0,0, .12);
-            text-align: center;
-            line-height: 40px;
-            color: #1989fa;
-          }">
-            UP
-          </div>
-        </el-backtop>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import { Select, Option, Autocomplete, Button, Table, TableColumn, Pagination, Message } from "element-ui";
+import { Select, Option, Autocomplete, Button, Table, TableColumn, Pagination, Message, Input } from "element-ui";
 
 export default {
   name: 'GeneAnnotation',
@@ -108,6 +96,7 @@ export default {
     "el-table-column": TableColumn,
     "el-pagination": Pagination,
     // "el-backtop": Backtop
+    "el-input": Input
   },
   data() {
     return {
@@ -122,6 +111,12 @@ export default {
       tableData: [
         {
           geneID: 'ENSCGOG00000000002',
+          dataBase: 'ensembl',
+          biotype: 'protein_coding',
+          chromsome: 'chr1',
+          annotation: 'exportin-1-like [Source:NCBI gene%3BAcc:115012690]'
+        }, {
+          geneID: 'Dans',
           dataBase: 'ensembl',
           biotype: 'protein_coding',
           chromsome: 'chr1',
@@ -800,6 +795,7 @@ export default {
       isBorder: true,
       currentPage: 1,
       pageSize: 10,
+      tableFilter: ""
     }
   },
   mounted() {
@@ -1008,10 +1004,6 @@ export default {
   padding: 20px 40px;
 }
 
-.download_btn {
-  height: 28px;
-}
-
 .tick_download {
   float: left;
   border: 0;
@@ -1023,6 +1015,11 @@ export default {
   float: left;
   border: 0;
   padding-left: 0px;
+}
+
+.table_filter {
+  width: 260px; 
+  float: right;
 }
 
 span {
