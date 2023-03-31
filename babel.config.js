@@ -38,6 +38,8 @@ module.exports = {
         "libraryName": "element-ui",
         "styleLibraryName": "theme-chalk"
       }
-    ]
+    ],
+    /* ant-design-vue按需引入 */
+    ["import", { "libraryName": "ant-design-vue", "libraryDirectory": "es", "style": "css" }]
   ],
 };
