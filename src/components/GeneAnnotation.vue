@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import readExcelData from "@/utils/readExcelData";
 import { Select, Option, Autocomplete, Button, Table, TableColumn, Pagination, Message, Input } from "element-ui";
 
 export default {
@@ -800,6 +801,7 @@ export default {
   },
   mounted() {
     this.restaurants = this.loadAll();
+    readExcelData("/data/gene.xlsx");
   },
   created() {
     this.pageRenderingTableData();
