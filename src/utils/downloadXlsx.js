@@ -1,13 +1,14 @@
 import XLSX from 'xlsx'
+
 export const downloadXlsx = (dataList, fileName) => {
   // 字符串转成字节流
   const stringToBuff = str => {
-    const buf = new ArrayBuffer(str.length);
-    const view = new Uint8Array(buf);
+    const buffer = new ArrayBuffer(str.length);
+    const view = new Uint8Array(buffer);
     for (let i = 0; i != str.length; ++i) {
       view[i] = str.charCodeAt(i) & 0xff
     }
-    return buf;
+    return buffer;
   }
   // 初始化Excel表格
   let workbook = XLSX.utils.book_new();

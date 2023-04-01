@@ -4,9 +4,9 @@ import router from './router'
 import { MessageBox, Notification, Loading } from 'element-ui'
 import { downloadXlsx } from './utils/downloadXlsx.js'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 // 修改this.$confirm出现问题的办法
-Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$notify = Notification;
 Vue.use(Loading.directive);
 
