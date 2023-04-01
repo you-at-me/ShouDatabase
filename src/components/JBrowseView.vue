@@ -81,8 +81,8 @@ export default {
       this.searchOptionValue = this.speciesName;
       return;
     }
-    // 对于在vue里面嵌套另外一个完整的html文件，则只需引入对应文件即可，但是需要注意必须引入的是public下static的文件夹，而且在引入的时候是不需要指定public路径的。要么就是你可以引入public目录下以其他文件命名的html文件，比如page.html文件(该文件存在于public目录下)
-    this.jbrowsePageSrc = `../../../static/index.html?config=project_data%2FCottoperca_gobio%2Fconfig.json&session=spec-{"views":[{"type": "LinearGenomeView", "displayedRegions":[{"assemblyName":"Cottoperca_gobio.fCotGob3.1.dna.toplevel"}]}]}`; // session具体的各自参数链接写法详情请看：https://jbrowse.org/jb2/docs/urlparams/
+    // 对于在vue里面嵌套另外一个完整的html文件，则只需引入对应文件即可，但是需要注意必须引入的是public下static的文件夹，而且在引入的时候是不需要指定public路径的，要么就是你可以引入public目录下以其他文件命名的html文件，比如page.html文件(该文件存在于public目录下)。public目录的指定可以通过相对路径指定到public目录下，也可以通过直接指定'/',此时指代的路径就是静态资源public目录
+    this.jbrowsePageSrc = `/static/index.html?config=project_data%2FCottoperca_gobio%2Fconfig.json&session=spec-{"views":[{"type": "LinearGenomeView", "displayedRegions":[{"assemblyName":"Cottoperca_gobio.fCotGob3.1.dna.toplevel"}]}]}`; // session具体的各自参数链接写法详情请看：https://jbrowse.org/jb2/docs/urlparams/
 
     // this.pageSrc = `../../../static/index.html?config=`;
 
@@ -97,7 +97,7 @@ export default {
     searchOptionValue(newValue, oldValue) {
       console.log('searchOptionValue被修改了', "new:" + newValue, "old:" + oldValue)
       if (newValue != '' && newValue != null) {
-        this.jbrowsePageSrc = `../../../static/index.html?config=project_data%2F` + newValue.replace(" ", "_") + `%2Fconfig.json&session=spec-{"views":[{"type": "LinearGenomeView"}]}`;
+        this.jbrowsePageSrc = `/static/index.html?config=project_data%2F` + newValue.replace(" ", "_") + `%2Fconfig.json&session=spec-{"views":[{"type": "LinearGenomeView"}]}`;
       }
     },
   }
