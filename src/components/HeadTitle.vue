@@ -21,7 +21,7 @@ export default {
 }
 
 .head_title {
-  width: 67%;
+  width: 69%;
   margin: 0 auto;
 }
 
