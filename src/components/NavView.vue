@@ -19,8 +19,13 @@
             <el-menu-item index="2-4-3">选项3</el-menu-item>
           </el-submenu>
         </el-submenu>
+        <el-submenu index="4">
+          <template slot="title">Germplasm</template>
+          <el-menu-item index="/germplasm/germplasm-resource" @click="showGermplasmResourceView">Germplasm Resource</el-menu-item>
+          <el-menu-item index="/germplasm/germplasm-info" @click="showGermplasmInfoView">Germplasm Info</el-menu-item>
+        </el-submenu>
         <!-- disabled表示禁用当前的导航选项卡 -->
-        <el-menu-item index="4" disabled>develop</el-menu-item>
+        <el-menu-item index="5" disabled>develop</el-menu-item>
       </el-menu>
     </div>
     <div id="line"></div>
@@ -81,6 +86,16 @@ export default {
       this.$router.push({
         name: "gene-annotation",
       });
+    },
+    showGermplasmResourceView() {
+      this.$router.push({
+        name: "germplasm-resource",
+      });
+    }, 
+    showGermplasmInfoView() {
+      this.$router.push({
+        name: "germplasm-info",
+      });
     }
   },
 };
@@ -102,7 +117,7 @@ export default {
 }
 
 .show-page {
-  width: 67%;
+  width: 70%;
   /* height: 500px; */
   margin: 0 auto;
   margin-top: 30px;
