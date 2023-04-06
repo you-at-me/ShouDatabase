@@ -19,6 +19,6 @@ export default function readExcelData(url) { // url的路径直接写'/xxx.xlsx'
   axios.get(url, { responseType: 'arraybuffer' }).then((res) => {
     const data = new Uint8Array(res.data);
     let wb = XLSX.read(data, { type: 'array' });
-    return transformSheets(wb.Sheets);
+    transformSheets(wb.Sheets); // 在原生js当中无法将一个axios的返回值赋给外界的变量
   }, err => console.log(err)).catch(err => console.log(err))
 }
