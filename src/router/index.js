@@ -50,6 +50,14 @@ const router = new Router({
       name: 'gene-annotation',
       path: '/genome/gene-annotation',
       component: () => import('../components/GeneAnnotation.vue'),
+    }, {
+      name: 'germplasm-resource',
+      path: '/germplasm/germplasm-resource',
+      component: () => import('../components/GermplasmResource.vue'),
+    }, {
+      name: 'germplasm-info',
+      path: '/germplasm/germplasm-info',
+      component: () => import('../components/GermplasmInfo.vue'),
     }
   ]
 })
