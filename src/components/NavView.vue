@@ -118,7 +118,6 @@ export default {
 
 .show-page {
   width: 70%;
-  /* height: 500px; */
   margin: 0 auto;
   margin-top: 30px;
 }

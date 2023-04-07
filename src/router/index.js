@@ -58,6 +58,54 @@ const router = new Router({
       name: 'germplasm-info',
       path: '/germplasm/germplasm-info',
       component: () => import('../components/GermplasmInfo.vue'),
+      children: [
+        {
+          name: 'germplasm-haixing',
+          path: '/germplasm/germplasm-info/germplasm-haixing',
+          component: () => import('../components/germplasm/GermplasmHaixing.vue'),
+          props: function ($route) {
+            return {
+              flag: $route.query.flag,
+            }
+          }
+        }, {
+          name: 'germplasm-zhongxing',
+          path: '/germplasm/germplasm-info/germplasm-zhongxing',
+          component: () => import('../components/germplasm/GermplasmZhongxing.vue'),
+          props: function ($route) {
+            return {
+              flag: $route.query.flag,
+            }
+          }
+        }, {
+          name: 'germplasm-haijing',
+          path: '/germplasm/germplasm-info/germplasm-haijing',
+          component: () => import('../components/germplasm/GermplasmHaijing.vue'),
+          props: function ($route) {
+            return {
+              flag: $route.query.flag,
+            }
+          }
+        }, {
+          name: 'germplasm-ctss',
+          path: '/germplasm/germplasm-info/germplasm-ctss',
+          component: () => import('../components/germplasm/GermplasmCtss.vue'),
+          props: function ($route) {
+            return {
+              flag: $route.query.flag,
+            }
+          }
+        }, {
+          name: 'germplasm-zero-four-two-one',
+          path: '/germplasm/germplasm-info/germplasm-zero-four-two-one',
+          component: () => import('../components/germplasm/GermplasmZerofourTwoOne.vue'),
+          props: function ($route) {
+            return {
+              flag: $route.query.flag,
+            }
+          }
+        }
+      ]
     }
   ]
 })
