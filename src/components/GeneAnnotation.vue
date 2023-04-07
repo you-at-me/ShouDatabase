@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 1300px;">
     <div style="text-align: left;">
       <p style="color: #2190bd; font-size: 13px; font-weight: bold;">Gene Annotation</p>
       <div class="line"></div>
@@ -24,7 +24,7 @@
 
           <el-autocomplete v-model="state" filterable clearable :fetch-suggestions="querySearchAsync"
             placeholder="Select a Gene Id or Annotation keywords" @select="handleSelect"
-            style="width: 460px;"></el-autocomplete>
+            style="width: 520px;"></el-autocomplete>
 
           <el-button type="primary" plain icon="el-icon-search" style="float: right;" @click="geneAnnatitionSearch"
             :loading="loading">search</el-button>
@@ -83,7 +83,6 @@
 </template>
 
 <script>
-import readExcelData from "@/utils/readExcelData";
 import { Select, Option, Autocomplete, Button, Table, TableColumn, Pagination, Message, Input } from "element-ui";
 
 export default {
@@ -801,7 +800,6 @@ export default {
   },
   mounted() {
     this.restaurants = this.loadAll();
-    readExcelData("/data/gene.xlsx");
   },
   created() {
     this.pageRenderingTableData();
