@@ -30,35 +30,7 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div style="margin-top: 50px; height: 230px; text-align: left;">
-      <div style="width: 70%; height: 230px;">
-        <div style="width: 100%;">
-          <span style="font-size: 22px;">Germplasm resources</span>
-          <i class="el-icon-more" style="float: right; margin: 16px 20px 0px 0px;"></i>
-          <span class="info-more">info more</span>
-        </div>
-        <div class="info">
-          <div style="margin: 10px 20px">
-            <span class="info-span">凡纳滨对虾“海兴农3号”新品种</span>
-            <h6 class="info-h6">A Polymorphic (CT)n-SSR Influences the Activity of the Litopenaeus vannamei IRF Gene
-              Implicated in Viral Resistance</h6>
-            <p class="info-p">
-              在相同养殖条件下，与凡纳滨对虾“海兴农2号”相比，110日龄体重提高13.5%，成活率提高10.0%;与泰国进口一代虾苗相比，110日龄体重提高11.7%，成活率提高12.0%。适宜在全国水温18~32℃和盐度2~35的人工可控的水体中养殖。
-            </p>
-          </div>
-        </div>
-        <div class="info">
-          <div style="margin: 0px 20px">
-            <span class="info-span">凡纳滨对虾“海兴农3号”新品种</span>
-            <h6 class="info-h6">A Polymorphic (CT)n-SSR Influences the Activity of the Litopenaeus vannamei IRF Gene
-              Implicated in Viral Resistance</h6>
-            <p class="info-p">
-              在相同养殖条件下，与凡纳滨对虾“海兴农2号”相比，110日龄体重提高13.5%，成活率提高10.0%;与泰国进口一代虾苗相比，110日龄体重提高11.7%，成活率提高12.0%。适宜在全国水温18~32℃和盐度2~35的人工可控的水体中养殖。
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    
     <div style="margin-top: 50px;">
       <div class="title-info">
         <div class="title-jbrowse">
@@ -148,61 +120,11 @@ i {
 .home-search-inner {
   padding: 9px 10px;
 }
-.info-more {
-  font-size: 14px; 
-  color: #024091; 
-  float: right; 
-  margin: 12px 5px 0px 0px; 
-  cursor: pointer;
-}
-
-.info {
-  width: 370px;
-  height: 150px;
-  border: 1px solid #e9e9e9;
-  float: left;
-  margin: 20px
-}
-
-.info:hover {
-  border: 1px solid #043e90;
-}
-
-.info:hover span {
-  color: #043e90;
-  font-weight: 1000;
-}
-
-.info-span {
-  line-height: 40px;
-  font-size: 16px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.info-h6 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
-}
-
-.info-p {
-  font-size: 12px;
-  color: #999;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
 
 .title-info {
   float: left;
   width: 70%;
 }
-
 
 .title-jbrowse {
   text-align: left;
