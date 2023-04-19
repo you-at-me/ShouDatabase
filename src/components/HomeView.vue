@@ -149,6 +149,7 @@ i {
   line-height: 300px;
   margin: 0;
   text-align: center;
+  /* display: flex; */
 }
 
 .el-carousel__item div {
