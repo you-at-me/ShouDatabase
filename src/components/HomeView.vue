@@ -68,7 +68,6 @@
         <img style="border-radius: 8px;border: 4px solid #e0e0e0;height: auto;width: 100%;" width="1364" height="1362"
           alt="screen of gene jbrowse 2" src="../assets/screenshot.webp" />
       </div> -->
-      
   </div>
 </template>
 
