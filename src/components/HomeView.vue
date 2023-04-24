@@ -16,6 +16,7 @@
       <el-carousel indicator-position="outside">
         <el-carousel-item v-for="item in 4" :key="item">
           <h3>{{ item }}</h3>
+        
           <!-- <div class="home-index-inner">
             <div style="width:200px; float: left;">
               <img src="../assets/logo.png" />
@@ -30,7 +31,7 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    
+
     <div style="margin-top: 50px;">
       <div class="title-info">
         <div class="title-jbrowse">
@@ -63,7 +64,7 @@
     </div>
     <div class="paper-info">
     </div>
-    
+
     <!-- <div class="mb-4" style="margin-left: 30px;">
         <img style="border-radius: 8px;border: 4px solid #e0e0e0;height: auto;width: 100%;" width="1364" height="1362"
           alt="screen of gene jbrowse 2" src="../assets/screenshot.webp" />
@@ -154,7 +155,6 @@ i {
 
 .el-carousel__item div {
   /* color: #475669; */
-
   /* font-size: 18px;
   opacity: 0.75;
   line-height: 300px;
@@ -173,4 +173,5 @@ i {
   float: left;
   width: 29%;
   margin-left: 11px;
-}</style>
+}
+</style>
