@@ -16,7 +16,6 @@
       <el-carousel indicator-position="outside">
         <el-carousel-item v-for="item in 4" :key="item">
           <h3>{{ item }}</h3>
-        
           <!-- <div class="home-index-inner">
             <div style="width:200px; float: left;">
               <img src="../assets/logo.png" />
