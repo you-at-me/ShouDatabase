@@ -62,6 +62,7 @@
       </div>
     </div>
     <div class="paper-info">
+      
     </div>
     <!-- <div class="mb-4" style="margin-left: 30px;">
         <img style="border-radius: 8px;border: 4px solid #e0e0e0;height: auto;width: 100%;" width="1364" height="1362"
