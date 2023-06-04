@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 线条式基因表达 -->
+  <title>Gene Expression Chart</title>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+
+<body>
+  <div id="container" style="width:100%; height:400px;"></div>
+  <script>
+    // 定义数据
+    const geneData = [{
+      name: 'Gene A',
+      data: [5, 10, 15, 20, 25]
+    }, {
+      name: 'Gene B',
+      data: [8, 12, 16, 20, 24]
+    }, {
+      name: 'Gene C',
+      data: [3, 6, 9, 12, 15]
+    }, {
+      name: 'Gene D',
+      data: [7, 14, 19, 23, 30]
+    }, {
+      name: 'Gene C',
+      data: [9, 16, 23, 26, 35]
+    }];
+
+    // 设置图表配置
+    const chartConfig = {
+      chart: {
+        type: 'line'
+      },
+      title: {
+        text: 'Gene Expression Levels'
+      },
+      xAxis: {
+        categories: ['Sample 1', 'Sample 2', 'Sample 3', 'Sample 4', 'Sample 5']
+      },
+      yAxis: {
+        title: {
+          text: 'Expression Level'
+        }
+      },
+      series: geneData
+    };
+
+    // 绘制图表
+    Highcharts.chart('container', chartConfig);
+  </script>
+</body>
+
+</html>
