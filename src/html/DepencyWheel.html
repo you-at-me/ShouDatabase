@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dependency Wheel 示例</title>
+  <!-- 引入 Highcharts 的 JS 库 -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/sankey.js"></script>
+  <script src="https://code.highcharts.com/modules/dependency-wheel.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+</head>
+
+<body>
+  <div id="container" style="width: 100%; height: 600px"></div>
+
+  <script type="text/javascript">
+    // 数据源，每个依赖项都由 from 和 to 属性定义
+    var data = [
+      { from: 'A', to: 'B', weight: 1 },
+      { from: 'A', to: 'C', weight: 2 },
+      { from: 'A', to: 'D', weight: 2 },
+      { from: 'B', to: 'D', weight: 3 },
+      { from: 'B', to: 'C', weight: 2 },
+      { from: 'E', to: 'F', weight: 2 },
+      { from: 'F', to: 'D', weight: 3 },
+      { from: 'G', to: 'C', weight: 1 },
+      { from: 'H', to: 'A', weight: 1 },
+      { from: 'H', to: 'G', weight: 1 },
+      { from: 'I', to: 'J', weight: 2 },
+      { from: 'I', to: 'C', weight: 1 },
+      { from: 'C', to: 'E', weight: 1 },
+    ];
+
+    // 初始化 Highcharts 图表
+    Highcharts.chart('container', {
+      chart: {
+        type: 'dependencywheel',
+        backgroundColor: '#f5f5f5'
+      },
+      title: {
+        text: '依赖关系图'
+      },
+      legend: {
+        enabled: true
+      },
+      series: [{
+        name: '依赖项',
+        keys: ['from', 'to', 'weight'],
+        data: data,
+        turboThreshold: 0,
+        nodePadding: 10,
+        size: '95%',
+        events: {
+          click: function (e) {
+            console.log(e.point.name);
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}'
+        },
+        marker: {
+          lineWidth: 1
+        },
+        states: {
+          hover: {
+            color: '#a4edba'
+          }
+        }
+      }]
+    });
+  </script>
+</body>
+
+</html>
