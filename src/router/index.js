@@ -106,7 +106,11 @@ const router = new Router({
           }
         }
       ]
-    }
+    }, {
+      name: 'show-tpm',
+      path: '/show-tpm',
+      component: () => import('../components/ShowTpm.vue'),
+    },
   ]
 })
 
