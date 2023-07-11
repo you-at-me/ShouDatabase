@@ -24,8 +24,9 @@
           <el-menu-item index="/germplasm/germplasm-resource" @click="showGermplasmResourceView">Germplasm Resource</el-menu-item>
           <el-menu-item index="/germplasm/germplasm-info" @click="showGermplasmInfoView">Germplasm Info</el-menu-item>
         </el-submenu>
+        <el-menu-item index="6">Tpm</el-menu-item>
         <!-- disabled表示禁用当前的导航选项卡 -->
-        <el-menu-item index="5" disabled>develop</el-menu-item>
+        <el-menu-item index="6" disabled>develop</el-menu-item>
       </el-menu>
     </div>
     <div id="line"></div>
