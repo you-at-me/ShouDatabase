@@ -902,7 +902,7 @@ export default {
       this.multipleSelection.forEach((item, index) => {
         downloadDataList.push([index + 1, item.geneID, item.dataBase, item.biotype, item.chromsome, item.annotation]);
       });
-      // 这里直接调用vue当中的实例，第一个参数即传入的数组数据，数组当中包含多个对象信息，第二个是导出下载的文件名称
+      // 下载的js逻辑已经封装到了vue当中了，这里可以直接调用vue当中的实例，第一个参数即传入的数组数据，数组当中包含多个对象信息，第二个是导出下载的文件名称，可根据实际传入即可。
       this.downloadXlsx(downloadDataList, this.speciesSearchOptionValue + ".xlsx");
     },
     downloadAll() {
