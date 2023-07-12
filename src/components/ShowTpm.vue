@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
 /* 正常传统的 js 编程，需要通过 script src 引入下述五个文件，其中前两个是必须引入的，而其他的是次要的 */
 // https://code.highcharts.com/highcharts.js
 // https://code.highcharts.com/highcharts-more.js
