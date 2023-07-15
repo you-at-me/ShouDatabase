@@ -21,7 +21,7 @@ export default {
   },
   props: ["flag"],
   mounted() {
-    this.getXlsxSpecifyData(this, "/data/gene.xlsx")
+    this.getXlsxSpecifyData(this, "/data/xlsx/gene.xlsx")
   },
 };
 </script>
