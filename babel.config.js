@@ -8,7 +8,7 @@ module.exports = {
   presets: [
     '@vue/cli-plugin-babel/preset',
     ["@babel/preset-env", {}], // 简单理解能够编译es6+的语法
-    // element ui 相关, element ui 只适合vue2版本的, vue3 不兼容
+    // element ui 相关, element ui 只适合vue2版本的, vue3 不兼容。并且这将启用Babel插件，并将模块的转换方式设置为false，这样你的ES模块就会被保留和直接使用，而不会被转换为CommonJS模块。
     ["@babel/preset-env", { "modules": false }, "first"],
     [
       "@babel/preset-env",
