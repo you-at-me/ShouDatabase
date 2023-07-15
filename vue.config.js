@@ -97,6 +97,13 @@ module.exports = defineConfig({
       );
     }
     config.plugins = [...config.plugins, ...plugins];
+    // 添加resolve.fallback配置
+    config.resolve.fallback = {
+      stream: require.resolve('stream-browserify'),
+      // "util": require.resolve('readline')
+    };
+    // 返回修改后的配置对象，不用返回，否则将会启动报错
+    // return config;
   },
   css: { // css相关配置
     // 是否将组件中的 CSS 提取至一个独立的 CSS 文件中，生产环境下是 true，开发环境下是 false
