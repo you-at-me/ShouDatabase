@@ -128,7 +128,7 @@ export default {
   },
   data() {
     return {
-      speciesSearchOptionValue: 'zebrafish',
+      speciesSearchOptionValue: 'nile_tilapia',
       speciesOptions: ['nile_tilapia', 'zebrafish'],
       pageFilterTableData: [],
       multipleSelection: [],
@@ -191,64 +191,68 @@ export default {
           }]
         },
         // 鼠标放在图上显示的数据
-        series: [{
-          // 每一纵列的名称
-          name: 'Tpm Observations Value',
-          // data对应每一列的数据,每一个数组对应一列数据，包括最大值，高水平值，中间值，低水平值，最小值等。并且对应的数据也对应图中显示的线条。
-          data: [
-            // 这里面要求的数据必须得长度是一样的。而且分别对应的是最小值、下四分位数、中位数、上四分位数、最大值
-            // [660, 801, 848, 895, 965],
-            // [733, 853, 939, 980, 1000],
-            // [714, 762, 817, 870, 918],
-            // [724, 802, 806, 871, 950],
-            // [804, 836, 864, 882, 910]
-            [1.32783485878884, 6.7662419302174, 24.557228820844, 30.0584756394673, 33.7832656251513],
-            [3.93173216414058, 11.67780334382465, 19.6275795173684, 39.35028642760625, 50.5814801039091],
-            [6.83502466756266, 15.048016975650551, 32.7108490938765, 48.14966338682615, 53.8744264219858],
-            [0, 19.801529310253, 25.2656466878068, 37.3939649011749, 44.4792750055997],
-          ],
-          tooltip: {
-            // 每列鼠标hover之后最头部的数据显示
-            headerFormat: '<em>Experiment Name: {point.key}</em><br/>'
+        series: [
+          {
+            // 每一纵列的名称
+            name: 'Tpm Observations Value',
+            // data对应每一列的数据,每一个数组对应一列数据，包括最大值，高水平值，中间值，低水平值，最小值等。并且对应的数据也对应图中显示的线条。
+            data: [
+              // 这里面要求的数据必须得长度是一样的。而且分别对应的是最小值、下四分位数、中位数、上四分位数、最大值
+              // [660, 801, 848, 895, 965],
+              // [733, 853, 939, 980, 1000],
+              // [714, 762, 817, 870, 918],
+              // [724, 802, 806, 871, 950],
+              // [804, 836, 864, 882, 910]
+              [1.32783485878884, 6.7662419302174, 24.557228820844, 30.0584756394673, 33.7832656251513],
+              [3.93173216414058, 11.67780334382465, 19.6275795173684, 39.35028642760625, 50.5814801039091],
+              [6.83502466756266, 15.048016975650551, 32.7108490938765, 48.14966338682615, 53.8744264219858],
+              [0, 19.801529310253, 25.2656466878068, 37.3939649011749, 44.4792750055997],
+            ],
+            tooltip: {
+              // 每列鼠标hover之后最头部的数据显示
+              headerFormat: '<em>Experiment Name: {point.key}</em><br/>'
+            }
+          }, {
+            // 每列小圆点数据的显示: Outliers
+            name: 'specific value',
+            color: Highcharts.getOptions().colors[0],
+            type: 'scatter',
+            data: [ // x, y positions where 0 is the first category
+              // [0, 744],
+              // [0, 644],
+              // [0.15, 644],
+              // [4, 718],
+              // [4, 951],
+              // [4, 969]
+
+              [0, 27.44],
+              [-0.1, 26.44],
+              [0, 26.44],
+              [0, 15.44],
+              [0, 36.44],
+              [0, 56.44],
+              [0.05, 46.44],
+              [0.05, 32.44],
+              [0.1, 33.44],
+              [0.25, 16.44],
+              [1, 36.44],
+              [1, 26.54],
+              [1.1, 5.74],
+              [2, 7.18],
+              [3, 9.51],
+              [3, 9.69]
+            ],
+            marker: {
+              fillColor: 'white', // 更改小点的颜色
+              lineWidth: 0.5, // 更改小点的大小宽度
+              lineColor: Highcharts.getOptions().colors[0]
+            },
+            tooltip: {
+              // 鼠标放到小圆点的数据显示
+              pointFormat: 'Tpm Observation Value: {point.y}'
+            }
           }
-        }, {
-          // 每列小圆点数据的显示: Outliers
-          name: 'specific',
-          color: Highcharts.getOptions().colors[0],
-          type: 'scatter',
-          data: [ // x, y positions where 0 is the first category
-            // [0, 744],
-            // [0, 644],
-            // [0.15, 644],
-            // [4, 718],
-            // [4, 951],
-            // [4, 969]
-            [0, 7.44],
-            [0, 6.44],
-            [0, 15.44],
-            [0, 36.44],
-            [0, 56.44],
-            [0.25, 46.44],
-            [0.25, 32.44],
-            [0.1, 33.44],
-            [0.1, 6.44],
-            [1, 36.44],
-            [1, 26.54],
-            [1.1, 5.74],
-            [2, 7.18],
-            [3, 9.51],
-            [3, 9.69]
-          ],
-          marker: {
-            fillColor: 'white', // 更改小点的颜色
-            lineWidth: 0.5, // 更改小点的大小宽度
-            lineColor: Highcharts.getOptions().colors[0]
-          },
-          tooltip: {
-            // 鼠标放到小圆点的数据显示
-            pointFormat: 'Tpm Observation Value: {point.y}'
-          }
-        }]
+        ]
       }
 
     }
@@ -256,7 +260,7 @@ export default {
   props: {
     msg: String
   },
-  created() {
+  mounted() {
     this.loadTableData();
   },
   watch: {
@@ -361,6 +365,25 @@ export default {
         console.log(result);
         return result;
       });
+
+      let n = 0;
+      const mapArrData = this.currentTpmArrayData.map(currentSingleGeneObj => {
+        // console.log(currentSingleGeneObj);
+        const currentGeneTpmData = currentSingleGeneObj[geneId];
+        // console.log(currentGeneTpmData);
+        const res = [];
+        currentGeneTpmData.forEach(tpm => {
+          const randomValue = Math.random() * 0.5 + n - 0.25; // 在指定的n这个数字上下浮动0.25范围内随机生成一个数字。
+          const randomVal = randomValue.toFixed(2); // 截取小数点后两位。保留两位小数。
+          res.push([parseFloat(randomVal), parseFloat(tpm)]); // 需要将得到的字符串解析成数值型才能响应显示。
+        })
+        n++;
+        console.log(res);
+        return res;
+      })
+      // console.log(mapArrData);
+      this.tpmOptions["series"][1]["data"] = mapArrData.flatMap(arr => arr); // 去除中间括号
+      // console.log(this.tpmOptions["series"][1]["data"]);
 
       console.log(this.tpmOptions);
     },
