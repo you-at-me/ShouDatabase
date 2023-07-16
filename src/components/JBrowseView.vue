@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="text-align: left;">
-      <p><a href="https://jbrowse.org/jb2/" style="color: #2190bd; font-size: 13px;">Jbrowse</a></p>
+      <p><a href="https://jbrowse.org/jb2/" style="color: #2190bd; font-size: 13px; font-weight: bold;">Jbrowse</a></p>
       <div class="line"></div>
       <p style="color: #676a6c; font-size: 12px;">JBrowse is a dynamic web platform website focusing on visualization and
         analysis of genomic data.</p>
