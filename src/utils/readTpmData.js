@@ -27,7 +27,7 @@ export default {
 
             const geneId = row[0]; // 第一列作为gene_count
             const geneTpmData = row.slice(1); // 得到的是第二行及其之后每行第二列后以tab键分割的数据，并每行作为一个数组显示
-            if (geneTpmData.every(element => element === '0' || element === 0)) continue; // 当tpm在这第二列开始这一行都为数值0或者字符串0的时候，直接过滤掉。
+            // if (geneTpmData.every(element => element === '0' || element === 0)) continue; // 当tpm在这第二列开始这一行都为数值0或者字符串0的时候，直接过滤掉。
             const geneTpmObject = { [geneId]: geneTpmData }; // 构造基因对象
 
             if (geneId == '' || geneId == undefined) continue;
