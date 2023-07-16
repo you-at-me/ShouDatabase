@@ -55,7 +55,7 @@ export default {
     "el-pagination": Pagination
   },
   mounted() {
-    this.readExcelData("/data/gene.xlsx");
+    this.readExcelData("/data/xlsx/gene.xlsx");
   },
   watch: {
     germplasmData() {
