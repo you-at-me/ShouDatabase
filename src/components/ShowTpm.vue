@@ -288,6 +288,8 @@ export default {
         // this.tableData = o.reduce((acc, item) => acc.concat(item.smallObjects), []);
 
         this.tableData = res.flatMap((arr) => arr); // res数据即为单个指定物种的数据
+
+        console.log(res[this.getRandomInt(0, res.length - 1)]); // 随机获取其中一个文件夹的，也就是里面对应一个csv的tpm数据
         // console.log("this.tableData: ", this.tableData);
 
         // 首次刷新页面，刷新出当前页要展示的数据，将将其数据放入pageFilterTableData数组当中，不过得等到csv数据读取到了之后
@@ -298,6 +300,12 @@ export default {
         // this.clickShowGeneTpmView("adsl_1"); // zmp:0000000735_1
 
       }).catch(err => console.log(err));
+    },
+    // 生成一个指定范围的随机整数函数
+    getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     },
     /* 表格方法操作 */
     tickDownload() {
