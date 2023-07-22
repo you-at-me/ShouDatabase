@@ -27,15 +27,18 @@ export default {
 
             const geneId = row[0]; // 第一列作为gene_count
             const geneTpmData = row.slice(1); // 得到的是第二行及其之后每行第二列后以tab键分割的数据，并每行作为一个数组显示
-            // if (geneTpmData.every(element => element === '0' || element === 0)) continue; // 当tpm在这第二列开始这一行都为数值0或者字符串0的时候，直接过滤掉。
+            // if (geneTpmData.every(element => element === '0' || element === 0)) continue; // 当tpm在这第二列开始这一行都为数值0或者字符串0的时候，直接过滤掉(但有时可能防止用户也要查看对应没有展示数据的基因，故这里将即使没有数据也保留展示)
             const geneTpmObject = { [geneId]: geneTpmData }; // 构造基因对象
 
             if (geneId == '' || geneId == undefined) continue;
             const urlArr = speciePath.split("/");
+            
+            const filename = csvFile.replace('.csv', '').split("_");
 
             const lineObject = {
               specieName: urlArr[urlArr.length - 1],
-              expName: csvFile.replace('.csv', ''),
+              expName: filename[0],
+              expDesc: filename[1],
               ...geneTpmObject,
               ...samplesNameObject,
               geneId: geneId

@@ -46,18 +46,17 @@
           <el-table-column type="selection" width="55">
           </el-table-column>
           <!-- prop属性的属性值表示自动会去寻找表格数据中带有其属性值的值，并赋值给当前单元格，当然如果你不指定prop属性值，也可以通过template标签的slot-scope插槽将数据渲染到对应的单元格当中，label表示的是列头的名，然后就是固定写法: scope.row.xxx;xxx 就是对应数据源当中的字段; show-overflow-tooltip表示当单元格的数据过长无法全部显示的时候将会弹出对应的tip进行显示 -->
-          <el-table-column label="Specie" width="160">
+          <el-table-column label="Specie" width="100">
             <template slot-scope="scope">{{ scope.row.specieName }}</template>
           </el-table-column>
-          <el-table-column label="ExperimentName" prop="expName">
+          <el-table-column label="ExperimentName" prop="expName" width="150">
           </el-table-column>
-          <!-- <el-table-column label="ExperimentDescription" prop="expDesc" width="300" show-overflow-tooltip>
-          </el-table-column> -->
-          <el-table-column label="SequenceSamples" prop="samplesName" width="500" show-overflow-tooltip>
+          <el-table-column label="ExperimentDescription" prop="expDesc" width="300" show-overflow-tooltip>
           </el-table-column>
-          <el-table-column label="GeneID" width="150">
-            <template slot-scope="scope"><span style="color: #5390bd;" @click="clickShowGeneTpmView(scope.row.geneId)">{{
-              scope.row.geneId }}</span></template>
+          <el-table-column label="SequenceSamples" prop="samplesName" width="350" show-overflow-tooltip>
+          </el-table-column>
+          <el-table-column label="GeneID">
+            <template slot-scope="scope"><span style="color: #5390bd;" @click="clickShowGeneTpmView(scope.row.geneId)">{{ scope.row.geneId }}</span></template>
           </el-table-column>
         </el-table>
 
@@ -128,12 +127,15 @@ export default {
   },
   data() {
     return {
-      speciesSearchOptionValue: 'nile_tilapia',
+      speciesSearchOptionValue: 'zebrafish',
       speciesOptions: ['nile_tilapia', 'zebrafish'],
       pageFilterTableData: [],
       multipleSelection: [],
       currentTpmArrayData: [],
+      // 现更改表格数据为随机展示一个csv文件的数据，提高响应速度。
       tableData: [],
+      // 将所有csv请求过来的文件数据都装进这个数组里，只有在点击访问具体基因的时候才通过这个数组过滤出数据。
+      tableDataAllEsvData: [],
       tableFilter: "",
       isBorder: true,
       currentPage: 1,
@@ -162,7 +164,7 @@ export default {
         // x轴图表底部配置
         xAxis: {
           // x轴横轴图表底部目录
-          categories: ['1', '2', '3', '4', '5'],
+          categories: ['1', '2', '3', '4'],
           // x轴横轴图表底部标题
           title: {
             text: 'Experiment Name'
@@ -214,7 +216,7 @@ export default {
             }
           }, {
             // 每列小圆点数据的显示: Outliers
-            name: 'specific value',
+            name: 'Outliers Value',
             color: Highcharts.getOptions().colors[0],
             type: 'scatter',
             data: [ // x, y positions where 0 is the first category
@@ -229,9 +231,6 @@ export default {
               [-0.1, 26.44],
               [0, 26.44],
               [0, 15.44],
-              [0, 36.44],
-              [0, 56.44],
-              [0.05, 46.44],
               [0.05, 32.44],
               [0.1, 33.44],
               [0.25, 16.44],
@@ -239,6 +238,9 @@ export default {
               [1, 26.54],
               [1.1, 5.74],
               [2, 7.18],
+              [2, 16.44],
+              [1.8, 17.44],
+              [2.05, 25.44],
               [3, 9.51],
               [3, 9.69]
             ],
@@ -289,9 +291,11 @@ export default {
         // console.log(o);
         // this.tableData = o.reduce((acc, item) => acc.concat(item.smallObjects), []);
 
-        this.tableData = res.flatMap((arr) => arr); // res数据即为单个指定物种的数据
+        // this.tableData = res.flatMap((arr) => arr); // res数据即为单个指定物种的数据
+        this.tableDataAllEsvData = res.flatMap((arr) => arr); // res数据即为单个指定物种的数据，现将该物种的所有csv数据装进这个新数组里面，供点击基因展示箱线图的时候请求数据过滤。
 
-        console.log(res[this.getRandomInt(0, res.length - 1)]); // 随机获取其中一个文件夹的，也就是里面对应一个csv的tpm数据
+        // console.log(res[this.getRandomInt(0, res.length - 1)]); // 随机获取其中一个文件夹的csv tpm数据
+        this.tableData = res[this.getRandomInt(0, res.length - 1)]; // 只随机将一个csv数据返回给表格响应数据，提高响应速度
         // console.log("this.tableData: ", this.tableData);
 
         // 首次刷新页面，刷新出当前页要展示的数据，将将其数据放入pageFilterTableData数组当中，不过得等到csv数据读取到了之后
@@ -349,7 +353,8 @@ export default {
     clickShowGeneTpmView(geneId) {
       // console.log(geneId); // 当前点击的基因ID名称
       // 获取当前点击的那个基因的所有数组对象，返回一个包含多个对象的数组，有几个csv读取的文件就包含几个对象在数组里面。这里面过滤的是整个数组的数据，看日后有什么优化高效的方法。目前其实也挺快。
-      this.currentTpmArrayData = this.tableData.filter(o => o[geneId]);
+      // this.currentTpmArrayData = this.tableData.filter(o => o[geneId]);
+      this.currentTpmArrayData = this.tableDataAllEsvData.filter(o => o[geneId]); // 点击基因显示箱线图数据，这些数据来源新建的tableDataAllEsvData数组，而原先的tableData只随机展示某一个具体csv中的基因tpm数据，提高响应速度。
       // console.log(this.currentTpmArrayData); // 当前点击展示的所有关于该基因的对象数据，并封装在一个vue数据层的数组里面
       this.mapTpmData(geneId);
     },
@@ -376,6 +381,8 @@ export default {
         return result;
       });
 
+      // 更改重点：箱线图上的随机分布点展示
+      // 1.第一步先获取对应随机值和tpm的数据，这作为一个小数组装进一个中间数组里面，然后经过map方法的调用返回一个大数组
       let n = 0;
       const mapArrData = this.currentTpmArrayData.map(currentSingleGeneObj => {
         // console.log(currentSingleGeneObj);
@@ -392,6 +399,7 @@ export default {
         return res;
       })
       // console.log(mapArrData);
+      // 2.从这个大数组里做映射，越过中间层数组直接获取到小数组里面的数据给对应highcharts的随机点图赋值。
       this.tpmOptions["series"][1]["data"] = mapArrData.flatMap(arr => arr); // 去除中间括号
       // console.log(this.tpmOptions["series"][1]["data"]);
 
