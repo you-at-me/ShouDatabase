@@ -19,6 +19,7 @@ export default {
           const rows = response.data.split('\n');
           const csvData = []; // 存储csv文件的数据，该数组里面包含每行每行的数据，每行数据以对象的形式展示
 
+          // 切割掉第一行的第一列，将剩下的数据在这个数组里面，将每个数据的zcount_替换成空字符串，并最终用;分号连接起来，最终的结果是返回一个字符串。
           const samplesName = rows[0].split('\t').slice(1).map(value => value.replace('zcount_', '')).join(';');
           const samplesNameObject = { samplesName: samplesName }; // 构造样本名称对象
 
