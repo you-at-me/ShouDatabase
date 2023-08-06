@@ -337,7 +337,7 @@ export default {
     },
     downloadAll() {
       let downloadDataList = [];
-      downloadDataList.unshift(["specieName", "expName", "samplesName", "geneId"])
+      downloadDataList.unshift(["specieName", "expName", "samplesName", "geneId"]);
       this.tableData.forEach((item, index) => {
         downloadDataList.push([index + 1, item.specieName, item.expName, item.samplesName, item.geneId]);
       });
@@ -349,7 +349,7 @@ export default {
         console.log("the last page");
         this.pageFilterTableData = this.tableData.slice((this.currentPage - 1) * this.pageSize, this.tableData.length)
       }
-      this.pageFilterTableData = this.tableData.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+      this.pageFilterTableData = this.tableData.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
     },
     // 点击展示某个具体基因的tpm数据
     clickShowGeneTpmView(geneId) {
