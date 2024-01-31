@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+</head>
+
+<body>
+  <div id="container" style="width: 500px; height: 400px;margin: 0 auto;"></div>
+
+  <script>
+    // 创建柱状图
+    Highcharts.chart('container', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: '柱状图示例'
+      },
+      xAxis: {
+        categories: ['一月', '二月', '三月', '四月', '五月']
+      },
+      yAxis: {
+        title: {
+          text: '销售数量'
+        }
+      },
+      series: [{
+        name: '产品A',
+        data: [10, 15, 12, 8, 7]
+      }, {
+        name: '产品B',
+        data: [8, 9, 10, 7, 6]
+      }]
+    });
+  </script>
+</body>
+
+</html>
