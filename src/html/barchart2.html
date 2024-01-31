@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <!-- <script src="https://code.highcharts.com/highcharts-more.js"></script> -->
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+
+<body>
+
+  <input type="file" id="fileInput" accept=".csv">
+  <div id="container" style="width: 800px; height: 500px;"></div>
+
+  <script>
+    // 创建一个空对象，用于存储染色体数据
+    const chromosomeData = {};
+
+    // 获取文件输入元素
+    const fileInput = document.getElementById('fileInput');
+
+    // 添加文件选择事件监听器
+    fileInput.addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader(); // 创建文件读取器
+        reader.onload = function (e) { // 读取文件内容
+          const content = e.target.result;
+          const lines = content.trim().split('\n');
+          lines.forEach(line => { // 遍历每一行数据并解析
+            const [chromosomeName, chromosomeValue] = line.split('\t');
+            const chromosomeDiffValue = +chromosomeValue;
+            // 首先判断一下该染色体所代表的对象key是否存在，如果不存在即将其置为一个空数组
+            if (!chromosomeData.hasOwnProperty(chromosomeName)) {
+              chromosomeData[chromosomeName] = [];
+            }
+            // 将数据添加到对象中
+            chromosomeData[chromosomeName].push(chromosomeDiffValue);
+          });
+          console.log(chromosomeData);
+
+          /* 开始柱状图显示。这一块内容要放入回调函数内容，以确保数据准备好后再进行图表渲染 */
+          // 只能上传对应指定染色体的 *_diff.csv 差异性文件数据(除非更改染色体对应名称)
+          const data = chromosomeData['LG2'];
+
+          const bucketSize = 160; // 定义桶的大小
+          const maxBucketValue = 4000; // 定义最大桶界值
+          const bucketRanges = []; // 存储桶的范围
+
+          for (let i = 0; i <= maxBucketValue; i += bucketSize) {
+            // if (i + bucketSize > maxBucketValue) {
+            //   bucketRanges.push(i);
+            //   break;
+            // }
+            bucketRanges.push(i);
+          }
+
+          if ((maxBucketValue + 1) % bucketSize !== 0) {
+            // 如果最大值不是桶大小的倍数，则大于倒数第二桶的及其以上的数据都放入最后一个桶
+            bucketRanges.push(Number.MAX_VALUE)
+          }
+          // console.log(bucketRanges); // 定义的桶范围数组数据
+
+          // bucketRanges.push(maxBucketValue + 1); // 添加一个桶以容纳超过 1000 的值
+          const frequencies = new Array(bucketRanges.length - 1).fill(0); // 初始化范围桶数组，统计数字落在对应桶中的个数，刚开始值均为0
+          const bucketData = Array.from({ length: bucketRanges.length - 1 }, () => []); // 初始化范围桶数组，这里主要存放那些落在对应桶内的数据。new Array()调用fill([])也可以实现初始化。但需注意:js里面数组的打印输出查看结果，它会展示本文件对该数组做出最后处理之后的最终结果，容易产生误导(至于内部的原因可能是js存在数组地址引用？亦或者是处理的顺序不一样？或者是js这门脚本语言跟其他不一样？？或者是二层数组原因？？？)
+
+          console.log(bucketData); // 这里查看该数组的结果展示的是本文件最终最后处理产生的结果，并不是上述初始化数组的结果。(迷？？)
+
+          data.forEach(dataPoint => {
+            for (let i = 0; i < bucketRanges.length - 1; i++) {
+              if (dataPoint >= bucketRanges[i] && dataPoint < bucketRanges[i + 1]) {
+                frequencies[i]++;
+                bucketData[i].push(dataPoint); // 将数据点添加到对应桶的bucketData中
+                break;
+              }
+            }
+          })
+          // const medians = []; // 通过对 bucketData 数组中的每个桶数据进行排序，并取中间位置即可得到桶内的中位数。
+          // bucketData.forEach(bucket => {
+          //   const sortedBucket = bucket.sort((a, b) => a - b);
+          //   const medianIndex = Math.floor(sortedBucket.length / 2);
+          //   medians.push(sortedBucket[medianIndex]);
+          // });
+          // 计算每个桶内的中位数值
+          const medianValues = bucketData.map(bucket => {
+            if (bucket.length === 0) {
+              return 0; // 如果桶内没有数据，返回null或者其他合适的值
+            }
+            bucket.sort((a, b) => a - b); // 对桶内的数据进行排序
+            const middleIndex = Math.floor(bucket.length >> 1);
+            if (bucket.length % 2 === 0) {
+              // 如果数据点个数为偶数，取中间两个数的平均值
+              return (bucket[middleIndex - 1] + bucket[middleIndex]) >> 1;
+            } else {
+              // 如果数据点个数为奇数，直接取中间的数
+              return bucket[middleIndex];
+            }
+          });
+          console.log(medianValues); // 各组范围数据的中位数数组结果
+          // 每组的中位数距离底部范围下限的差值大小，比如第一组范围0-159,其中位数是:107,则第一组最后结果为107-0=107;第二组范围160-319其中位数为228,则第二组最后结果显示为:228-160=68,以此类推...但最后一组的需要注意由于最后一组统计的范围上限很大，而且数据量居多，数字较大，它的中位数减去范围下限会依然很大，为了使折线图较为均衡，这里做了一个处理，就是将最后一个范围组的中位数除以范围分桶的数量得到一个较为均匀的值。
+          for (let i = 0; i < medianValues.length; i++) {
+            medianValues[i] -= bucketRanges[i];
+            if (i == medianValues.length - 1) {
+              // medianValues[i] /= bucketData.length;
+              medianValues[i] /= 10; // 现改成除以10了，看图展示较为明显
+            }
+          }
+          // // 计算每个桶内的平均值
+          // const averageValues = bucketData.map(bucket => {
+          //   if (bucket.length === 0) {
+          //     return null; // 如果桶内没有数据，返回null或者其他合适的值
+          //   }
+          //   const sum = bucket.reduce((acc, val) => acc + val, 0); // 计算数据点的总和
+          //   return sum / bucket.length; // 计算平均值
+          // });
+
+          Highcharts.chart('container', {
+            chart: {
+              type: 'column'
+            },
+            title: {
+              // text: '基因组某染色体的保守性差异比对柱状折线结果图'
+              text: ''
+            },
+            xAxis: [{
+              categories: bucketRanges.slice(0, -1).map((range, index, array) => {
+                if (index === array.length - 1) {
+                  return `${range}-∞`;
+                } else {
+                  return `${range}-${bucketRanges[index + 1] - 1}`;
+                }
+              }),
+              crosshair: true // 启用轴刻度线
+            }, {
+              // 第二个X轴用于折线图，位置与第一个X轴重叠
+              opposite: true,
+              // categories: ['范围 0-149', '范围 150-299', '范围 300-449', '范围 450-599', '范围 600-749', '范围 750-899', '范围 900-1000'],
+              categories: bucketRanges.slice(0, -1).map((range, index, array) => {
+                if (index === array.length - 1) {
+                  return `${range}-∞`;
+                } else {
+                  return `${range}-${bucketRanges[index + 1] - 1}`;
+                }
+              }),
+              linkedTo: 0, // 关联第一个X轴
+              visible: false // 隐藏第二个X轴的标签
+            }],
+            yAxis: [{
+              title: {
+                // text: '柱状图：起始终止位置值之间的差值范围数量统计数'
+                text: '<span lang="en">Count of value ranges between initial and terminal positions</span><br><span lang="zh">起始终止位置值之间的差值范围数量统计数</span>'
+              },
+              lineWidth: 0.3, // 这里增加y轴轴线的宽度，一般默认是0不会显示。
+              lineColor: '#000'
+              // gridLineWidth: 1, // Add this line to show gridlines on the left yAxis
+              // gridLineDashStyle: 'solid' // Optional: Style of the gridlines, default is solid
+            }, {
+              title: {
+                // text: '折线图：范围数据中位数与范围下限的差值'
+                text: '<span lang="en">Difference between median and lower bound of data range</span><br><span lang="zh">范围数据中位数与范围下限的差值</span>'
+              },
+              lineWidth: 0.3,
+              // lineColor: '#000',
+              opposite: true // 将Y轴放在图表的右侧
+            }],
+            series: [{
+              // name: '范围数据量个数',
+              name:  '<span lang="zh">范围数据量个数</span><br><span lang="en">Range data quantity</span>',
+              data: frequencies // 柱状图数据
+            }, {
+              // name: '中位数与范围下限差值',
+              name: '<span lang="zh">中位数与范围下限差值</span><br><span lang="en">Difference between median and lower limit of the range</span>',
+              type: 'line', // 指定为折线图
+              yAxis: 1, // 使用第二个Y轴
+              data: medianValues // 折线图数据，每个桶对应的中位数
+            }]
+          });
+
+
+          // Highcharts.chart('container', {
+          //   chart: {
+          //     type: 'column'
+          //   },
+          //   title: {
+          //     text: '数据分布柱状图'
+          //   },
+          //   xAxis: {
+          //     categories: bucketRanges.slice(0, -1).map((range, index) => `范围 ${range}-${bucketRanges[index + 1] - 1}`)
+          //   },
+          //   yAxis: {
+          //     title: {
+          //       text: '频率'
+          //     }
+          //   },
+          //   series: [{
+          //     name: '数据分布',
+          //     data: frequencies
+          //   }]
+          // });
+
+        };
+        reader.readAsText(file); // 读取文件
+
+      }
+    });
+
+  </script>
+</body>
+
+</html>
