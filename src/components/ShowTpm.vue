@@ -56,7 +56,8 @@
           <el-table-column label="SequenceSamples" prop="samplesName" width="350" show-overflow-tooltip>
           </el-table-column>
           <el-table-column label="GeneID">
-            <template slot-scope="scope"><span style="color: #5390bd;" @click="clickShowGeneTpmView(scope.row.geneId)">{{ scope.row.geneId }}</span></template>
+            <template slot-scope="scope"><span style="color: #5390bd;" @click="clickShowGeneTpmView(scope.row.geneId)">{{
+              scope.row.geneId }}</span></template>
           </el-table-column>
         </el-table>
 
@@ -147,7 +148,12 @@ export default {
         },
         // 图表的标题
         title: {
-          text: 'HighCharts BoxPlot Exhibit'
+          // text: 'HightChart BoxPlot Exhibit'
+          text: '',
+          // text: '<span lang="en">Ataf gene boxplot exhibit</span><br><span lang="zh">Ataf基因箱线图展示</span>',
+          // style: {
+          //   fontSize: '14px'
+          // }
         },
         // 去除右下角图片当中的水印，false即表示取消，true表示显示
         credits: {
@@ -164,18 +170,41 @@ export default {
         // x轴图表底部配置
         xAxis: {
           // x轴横轴图表底部目录
-          categories: ['1', '2', '3', '4'],
+          // categories: ['1', '2', '3', '4'],
+          categories: ['<span lang="en">2020guangxi</span><br><span lang="zh">2020广西</span>', '<span lang="en">2021shandong</span><br><span lang="zh">2021山东</span>', '<span lang="en">2020shanghai</span><br><span lang="zh">2020上海</span>', '<span lang="en">2020shanxi</span><br><span lang="zh">2020山西</span>'],
+          // categories: ['2019shanghai', '2020shandong', '2021guangxi', '2022shanxi'], // 对比一个例子(x轴坐标较为可以体现出实验名称)
           // x轴横轴图表底部标题
           title: {
-            text: 'Experiment Name'
+            // text: 'Experiment Name'
+            // text: ''
+            text: 'Experiment Name 实验名称',
+            style: {
+              // fontSize: '19px' // 调整y轴标题的字体大小
+            }
+          },
+          labels: {
+            style: {
+              // fontSize: '19px' // 调整x轴刻度标签的字体大小，也就是坐标轴上的字体大小
+            }
           }
         },
         // y轴图表配置。y轴数轴上的数据会根据下属data数组的数据自适应调整的
         yAxis: {
           // y轴标题
           title: {
-            text: 'Tpm Observations Value'
+            // text: 'Tpm Observations Value',
+            text: '<span lang="en">Tpm Observations Value</span><br><span lang="zh">Tpm观测值</span>',
+            style: {
+              fontSize: '16px' // 调整y轴标题的字体大小
+            }
           },
+          labels: {
+            style: {
+              // fontSize: '19px' // 调整y轴刻度标签的字体大小，也就是坐标轴上的字体大小
+            }
+          },
+          lineWidth: 0.3, // 这里增加y轴轴线的宽度，一般默认是0不会显示。
+          lineColor: '#000',
           // y轴横分割线一些样式及数据配置
           plotLines: [{
             value: 932,
@@ -221,6 +250,9 @@ export default {
             type: 'scatter',
             data: [ // x, y positions where 0 is the first category
               [0, 27.44],
+              [0.01, 15.44],
+              [-0.05, 5.74],
+              [0.01, 15.44],
               [-0.1, 26.44],
               [0, 1.32],
               [0, 15.44],
@@ -230,10 +262,16 @@ export default {
               [1, 36.44],
               [0.93, 26.54],
               [1.03, 50.58],
+              [1.06, 10.58],
+              [1.26, 20.58],
+              [0.96, 20.58],
+              [0.86, 20.58],
               [1.12, 26.54],
               [0.92, 3.93],
               [1.1, 5.74],
               [2.07, 7.18],
+              [2.17, 17.18],
+              [1.97, 6.18],
               [2, 16.44],
               [1.89, 17.44],
               [1.95, 13.93],
@@ -242,8 +280,13 @@ export default {
               [2.05, 53.87],
               [3.03, 0],
               [2.85, 19.80],
-              [3.09,27.51],
-              [2.89, 9.51],
+              [2.85, 9.80],
+              [2.95, 21.80],
+              [3.09, 27.51],
+              [3.0, 30.51],
+              [3.10, 12.51],
+              [3.09, 9.51],
+              [2.99, 9.61],
               [3.05, 44.47]
             ],
             marker: {

@@ -48,6 +48,9 @@ export default {
             }, {
               value: 'Cottoperca gobio',
               label: '石首鱼'
+            }, {
+              value: 'Danio rerio',
+              label: '斑马鱼'
             }
           ]
         }, {
