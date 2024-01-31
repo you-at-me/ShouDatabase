@@ -100,7 +100,7 @@ export default {
   },
   data() {
     return {
-      speciesOptions: ['Cottoperca gobio', 'Camarhynchus parvulus'],
+      speciesOptions: ['Cottoperca gobio', 'Camarhynchus parvulus', 'Danio rerio'],
       geneSourceOptions: ['ALL', 'GO', 'KEGG', 'ENSEMBAL', 'PANTHER'],
       speciesSearchOptionValue: 'Cottoperca gobio',
       geneSourceSearchOptionValue: '',
@@ -110,7 +110,7 @@ export default {
       timeout: null,
       tableData: [
         {
-          geneID: 'ENSCGOG00000000002',
+          geneID: 'ENSCGOG00000000322',
           dataBase: 'ensembl',
           biotype: 'protein_coding',
           chromsome: 'chr1',
@@ -122,25 +122,25 @@ export default {
           chromsome: 'chr1',
           annotation: 'exportin-1-like [Source:NCBI gene%3BAcc:115012690]'
         }, {
-          geneID: 'ENSCGOG00000000002',
+          geneID: 'ENSCGOG00000000203',
           dataBase: 'ensembl',
           biotype: 'protein_coding',
           chromsome: 'chr1',
           annotation: 'exportin-1-like [Source:NCBI gene%3BAcc:115012690]'
         }, {
-          geneID: 'ENSCGOG00000000002',
+          geneID: 'ENSCGOG00000000034',
           dataBase: 'ensembl',
           biotype: 'protein_coding',
           chromsome: 'chr1',
           annotation: 'exportin-1-like [Source:NCBI gene%3BAcc:115012690]'
         }, {
-          geneID: 'ENSCGOG00000000002',
+          geneID: 'ENSCGOG00000000402',
           dataBase: 'ensembl',
           biotype: 'protein_coding',
           chromsome: 'chr1',
           annotation: 'exportin-1-like [Source:NCBI gene%3BAcc:115012690]'
         }, {
-          geneID: 'ENSCGOG00000000002',
+          geneID: 'ENSCGOG00000000142',
           dataBase: 'ensembl',
           biotype: 'protein_coding',
           chromsome: 'chr1',
